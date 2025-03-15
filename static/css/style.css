@@ -1,0 +1,198 @@
+/* static/css/style.css */
+:root {
+    --primary-color: #34a0a4;
+    --secondary-color: #184e77;
+    --bg-color: #f0f8ff;
+    --correct-color: #2dc653;
+    --similar-color: #f9c74f;
+    --different-color: #e63946;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: 1fr;
+    }
+}
+
+.exports-panel, .guesses-panel {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+}
+
+.export-items {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.export-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    font-size: 1.1rem;
+}
+
+.guess-form {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+#country-input {
+    flex-grow: 1;
+    padding: 0.6rem;
+    border: 2px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+.guesses-container {
+    margin-top: 1rem;
+}
+
+.guess-card {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 5px solid var(--primary-color);
+}
+
+.guess-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.guess-details {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.exports-list {
+    margin-top: 0.5rem;
+}
+
+.export-similarity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+}
+
+.similarity-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.very-similar {
+    background-color: var(--correct-color);
+}
+
+.similar {
+    background-color: var(--similar-color);
+}
+
+.different, .not-in-target {
+    background-color: var(--different-color);
+}
+
+.game-over {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.game-over h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.game-over button {
+    padding: 0.8rem 2rem
+}
+
+/* Add to your style.css */
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
