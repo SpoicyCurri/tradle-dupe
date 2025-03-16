@@ -8,7 +8,7 @@ There are 2 versions of the game:
 
 To play the console-based gameplay, run `python console_game.py` in your terminal window.
 
-To play the browser-based gameplay, run `python app.py` in your terminal window. Then open the app at http://127.0.0.1:5000/
+The main game is the browser-based gameplay, run `python run.py` in your terminal window. Then open the app at http://127.0.0.1:5000/
 
 ## Credits
 Tradle-Dupe has been heavily inspired by [TRADLE](https://games.oec.world/en/tradle/) created by [@ximoes](https://twitter.com/ximoes) (Source code on [Github](https://github.com/alexandersimoes/tradle)) which itself was heavily inspired by [Worldle](https://worldle.teuteuf.fr/) created by [@teuteuf](https://twitter.com/teuteuf) which itself was heavily inspired by [Wordle](https://www.powerlanguage.co.uk/wordle/) created by [Josh Wardle](https://twitter.com/powerlanguish).
