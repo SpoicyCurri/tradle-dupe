@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradle - Guess the Country by Trade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <header>
+        <h1>Tradle</h1>
+        <div class="nav-buttons">
+            <button id="helpBtn" aria-label="Help">?</button>
+            <button id="statsBtn" aria-label="Statistics">📊</button>
+            <button id="settingsBtn" aria-label="Settings">⚙️</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="game-container">
+            <div id="message-area">
+                <p>Guess the country based on its trade exports!</p>
+                <p id="result-message"></p>
+            </div>
+
+            <div id="chart-area">
+                <!-- Trade data visualization will be shown here -->
+                <div id="export-chart">
+                    <h3>Top Exports</h3>
+                    <div class="chart-content" id="exports-visualization"></div>
+                </div>
+            </div>
+
+            <div id="guesses-container">
+                <!-- Previous guesses will appear here -->
+                <table id="guesses-table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Proximity</th>
+                            <th>Direction</th>
+                            <th>Population</th>
+                            <th>GDP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guesses-body">
+                        <!-- Guesses will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="guess-input">
+                <input type="text" id="country-input" placeholder="Enter a country name" aria-label="Enter a country name">
+                <button id="submit-guess">Guess</button>
+            </div>
+        </div>
+
+        <!-- Modal for help -->
+        <div id="help-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>How to Play</h2>
+                <p>Guess the mystery country based on its export data.</p>
+                <ul>
+                    <li>Each guess must be a valid country name</li>
+                    <li>After each guess, you'll receive information about:</li>
+                    <li>- Distance: How far your guess is from the target country</li>
+                    <li>- Direction: Which direction to go from your guess</li>
+                    <li>- Population: Whether the target has a larger or smaller population</li>
+                    <li>- GDP: Whether the target has a higher or lower GDP</li>
+                </ul>
+                <p>A new puzzle is available each day!</p>
+            </div>
+        </div>
+
+        <!-- Modal for statistics -->
+        <div id="stats-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Your Statistics</h2>
+                <div id="stats-display">
+                    <!-- Stats will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for settings -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Settings</h2>
+                <div class="setting">
+                    <label for="dark-mode-toggle">Dark Mode</label>
+                    <input type="checkbox" id="dark-mode-toggle">
+                </div>
+                <div class="setting">
+                    <label for="distance-unit">Distance Unit</label>
+                    <select id="distance-unit">
+                        <option value="km">Kilometers</option>
+                        <option value="mi">Miles</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with Flask | Inspired by <a href="https://oec.world/en/tradle/" target="_blank">Tradle</a></p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>

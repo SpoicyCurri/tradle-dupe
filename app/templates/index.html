@@ -1,0 +1,73 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradle Boot Camp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tradle Boot Camp</h1>
+            <p>Guess the country based on its export profile!</p>
+        </header>
+        <div id="game-container">
+            <div id="message-area">
+                <p id="result-message"></p>
+            </div>
+
+            <div id="chart-area">
+                <!-- Trade data visualization will be shown here -->
+                <div id="export-chart">
+                    <h3>Top Exports</h3>
+                    <div id="chart-loading">Loading export data...</div>
+                    <div class="chart-content" id="exports-treemap"></div>
+                </div>
+            </div>
+
+            <div id="guesses-container">
+                <!-- Previous guesses will appear here -->
+                <table id="guesses-table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Correct</th>
+                            <th>Distance (km)</th>
+                            <th>Direction</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guesses-body">
+                        <!-- Guesses will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="guess-input">
+                <div class="autocomplete-container">
+                    <input type="text" id="country-input" placeholder="Enter a country name" aria-label="Enter a country name">
+                    <div id="country-dropdown" class="dropdown-list"></div>
+                </div>
+                <button id="submit-guess">Guess</button>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>Created by SpoicyCurri |
+            <a href="https://github.com/SpoicyCurri/tradle-dupe">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        // Create a global variable that contains your Plotly JSON
+        const treemap_data = {{ treemap_data | safe }};
+        const treemap_layout = {{ treemap_layout | safe }};
+    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>

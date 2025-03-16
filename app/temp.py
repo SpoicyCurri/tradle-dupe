@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, jsonify, session
 import random
 import json
@@ -8,76 +7,6 @@ from difflib import get_close_matches
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # For session management
 
-# Load country trade data
-def load_country_data():
-    try:
-        with open('static/data/country_trade_data.json', 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return generate_sample_data()
-
-def generate_sample_data():
-    """Generate sample trade data for demo purposes."""
-    return {
-        "United States": {
-            "exports": {
-                "Machinery": 25.4,
-                "Electronics": 18.2,
-                "Vehicles": 14.7,
-                "Chemicals": 11.0,
-                "Food Products": 8.3
-            },
-            "continent": "North America",
-            "gdp_rank": 1
-        },
-        "Germany": {
-            "exports": {
-                "Vehicles": 23.1,
-                "Machinery": 18.7,
-                "Chemicals": 15.2,
-                "Electronics": 12.5,
-                "Pharmaceuticals": 10.8
-            },
-            "continent": "Europe",
-            "gdp_rank": 4
-        },
-        "Japan": {
-            "exports": {
-                "Vehicles": 20.5,
-                "Electronics": 18.3,
-                "Machinery": 15.6,
-                "Chemicals": 10.2,
-                "Metals": 8.7
-            },
-            "continent": "Asia",
-            "gdp_rank": 3
-        },
-        "China": {
-            "exports": {
-                "Electronics": 24.1,
-                "Machinery": 20.8,
-                "Textiles": 12.5,
-                "Metals": 10.1,
-                "Furniture": 7.5
-            },
-            "continent": "Asia",
-            "gdp_rank": 2
-        },
-        "Brazil": {
-            "exports": {
-                "Agricultural Products": 23.6,
-                "Minerals": 18.9,
-                "Food Products": 15.4,
-                "Metals": 12.1,
-                "Machinery": 6.8
-            },
-            "continent": "South America",
-            "gdp_rank": 9
-        }
-    }
-
-COUNTRY_DATA = load_country_data()
-COUNTRIES = list(COUNTRY_DATA.keys())
 MAX_GUESSES = 6
 
 def start_new_game():
@@ -129,7 +58,7 @@ def generate_feedback(guess):
     
     return feedback
 
-@app.route('/')
+# @app.route('/')
 def index():
     """Main game page."""
     if 'target_country' not in session:
@@ -144,7 +73,7 @@ def index():
                           won=session.get('won', False),
                           max_guesses=MAX_GUESSES)
 
-@app.route('/guess', methods=['POST'])
+# @app.route('/guess', methods=['POST'])
 def make_guess():
     """Process a player's guess."""
     if session.get('game_over', False):
@@ -202,7 +131,7 @@ def make_guess():
         "feedback": feedback
     })
 
-@app.route('/new-game', methods=['POST'])
+# @app.route('/new-game', methods=['POST'])
 def new_game():
     """Start a new game."""
     exports = start_new_game()
@@ -210,11 +139,44 @@ def new_game():
         "exports": exports,
         "message": "New game started!"
     })
+    
+#  {% comment %} <div class="game-board">
+#             <div class="exports-panel">
+#                 <h2>Export Profile</h2>
+#                 <div class="export-items">
+#                     {% for product, percentage in exports.items() %}
+#                     <div class="export-item">
+#                         <span class="product">{{ product }}</span>
+#                         <span class="percentage">{{ percentage }}%</span>
+#                     </div>
+#                     {% endfor %}
+#                 </div>
+#             </div>
 
-@app.route('/countries')
-def get_countries():
-    """Return the list of available countries for autocomplete."""
-    return jsonify(COUNTRIES)
+#             <div class="guesses-panel">
+#                 <h2>Guesses</h2>
+#                 <p>You have {{ max_guesses - guesses|length }} guesses remaining</p>
+                
+#                 {% if not game_over %}
+#                 <div class="guess-form">
+#                     <input type="text" id="country-input" placeholder="Enter a country name">
+#                     <button id="submit-guess">Guess</button>
+#                 </div>
+#                 {% endif %}
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#                 <div class="guesses-container" id="guesses-list">
+#                     <!-- Guesses will be added here via JavaScript -->
+#                 </div>
+                
+#                 {% if game_over %}
+#                 <div class="game-over">
+#                     {% if won %}
+#                     <h3>Congratulations! You won!</h3>
+#                     {% else %}
+#                     <h3>Game Over! The correct country was: {{ session['target_country'] }}</h3>
+#                     {% endif %}
+#                     <button id="new-game">Play Again</button>
+#                 </div>
+#                 {% endif %}
+#             </div>
+#         </div> {% endcomment %}
