@@ -20,19 +20,20 @@ class TradeDataLoader:
         self.country_metadata_path = country_metadata_path
         self.logger = logging.getLogger(__name__)
         self.raw_data = None
+        self.country_metadata = None
         self.countries_data = {}
-        self.country_metadata = {}
-        
-        # Load country metadata if available
-        if country_metadata_path and os.path.exists(country_metadata_path):
-            with open(country_metadata_path, 'r') as f:
-                self.country_metadata = json.load(f)
         
     def load_data(self):
         """Load trade data from CSV and process it"""
         try:
             self.logger.info(f"Loading trade data from {self.csv_path}")
             self.raw_data = pd.read_csv(self.csv_path, encoding_errors='ignore')
+            
+            # Load country metadata if available
+            if self.country_metadata_path and os.path.exists(self.country_metadata_path):
+                self.country_metadata = pd.read_csv(self.country_metadata_path)
+                self.raw_data = self.raw_data.merge(self.country_metadata, left_on="reporterISO", right_on="country_iso")
+                
             self.process_data()
         except Exception as e:
             self.logger.error(f"Error loading trade data: {str(e)}")
@@ -55,23 +56,33 @@ class TradeDataLoader:
             country_iso = row['reporterISO']
             country_name = row['reporterDesc']
             country_code = row['reporterCode']
-            # commodity_code = row['cmdCode']
             commodity_name = row['cmdDesc']
             value = row['fobvalue'] if not pd.isna(row['fobvalue']) else row['primaryValue']
+            coordinates = row['latlng']
+            region = row['region']
+            subregion = row['subregion']
             
             # Skip rows with missing essential data
             if pd.isna(country_name) or pd.isna(commodity_name) or pd.isna(value):
                 continue
             
+            # Process coordinates
+            # Remove brackets and split by comma
+            coordinates = coordinates.strip('[]').split(',')
+            # Convert each string to float
+            coordinates = [float(coord.strip()) for coord in coordinates]
+            
             # Add country info
             processed_data[country_name]['iso'] = country_iso
             processed_data[country_name]['country_code'] = country_code
+            processed_data[country_name]['continent'] = region
+            processed_data[country_name]['subregion'] = subregion
+            processed_data[country_name]['coordinates'] = {'lat': coordinates[0], 'lng': coordinates[1]}
             
             # Add or update export value for this product
             if commodity_name in processed_data[country_name]['exports']:
                 processed_data[country_name]['exports'][commodity_name] += value
             else:
-                # processed_data[country_name]['exports'][commodity_name]['commodity_id'] = commodity_code
                 processed_data[country_name]['exports'][commodity_name] = value
         
         # Post-processing: calculate top products and percentages

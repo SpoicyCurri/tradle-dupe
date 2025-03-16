@@ -1,5 +1,13 @@
+# App build
 flask=3.1.0
-pandas=2.2.3
-plotly=6.0.0
 python-dotenv=1.0.1
+
+# Data processing
+pandas=2.2.3
+
+# Data visualisation
+plotly=6.0.0
 kaleido=0.2.1
+
+# Datasets
+python-restcountries=2.0.0

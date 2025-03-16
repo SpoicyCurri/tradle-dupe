@@ -14,7 +14,7 @@ class Config:
     
     # Data settings
     TRADE_DATA_PATH = os.path.join('app', STATIC_FOLDER, 'data', 'tradedata_uncomtrade.csv')
-    COUNTRY_METADATA_PATH = os.path.join('app', STATIC_FOLDER, 'data', 'metadata.json')
+    COUNTRY_METADATA_PATH = os.path.join('app', STATIC_FOLDER, 'data', 'country_metadata.csv')
     PROCESSED_DATA_PATH = os.path.join('app', STATIC_FOLDER, 'data', 'trade_data.json')
     FORCE_DATA_RELOAD = os.environ.get('FORCE_DATA_RELOAD', True)
     
